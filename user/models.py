@@ -82,4 +82,4 @@ class Avaliacao(models.Model):
     comentario = models.TextField('Comentário')
 
     def __str__(self):
-        return self.turista.first_name + ' em ' + self.guia.first_name
+        return self.turista.user.first_name + ' em ' + self.guia.user.first_name

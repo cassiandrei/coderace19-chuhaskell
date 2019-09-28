@@ -1,8 +1,8 @@
 from rest_framework.viewsets import ModelViewSet
 from user.models import Avaliacao
-from .serializers import RegistroSensorUmidadeSerializer
+from .serializers import AvaliacaoSerializer
 
 
 class AvaliacaoViewSet(ModelViewSet):
     queryset = Avaliacao.objects.all()
-    serializer_class = RegistroSensorUmidadeSerializer
+    serializer_class = AvaliacaoSerializer

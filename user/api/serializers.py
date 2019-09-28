@@ -2,7 +2,7 @@ from rest_framework.serializers import ModelSerializer
 from user.models import Avaliacao
 
 
-class RegistroSensorUmidadeSerializer(ModelSerializer):
+class AvaliacaoSerializer(ModelSerializer):
     class Meta:
         model = Avaliacao
-        fields = ('id', 'timestamp', 'valor')
+        fields = ('guia', 'turista', 'nota', 'comentario')
