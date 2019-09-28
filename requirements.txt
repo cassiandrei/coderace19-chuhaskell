@@ -4,3 +4,4 @@ pillow
 django-cleanup
 djangorestframework==3.9.0
 names
+django-filter
