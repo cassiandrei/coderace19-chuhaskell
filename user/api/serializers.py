@@ -14,13 +14,15 @@ class CidadeSerializer(ModelSerializer):
         fields = ('estado', 'nome')
 
 
-class GuiaSerializer(ModelSerializer):
-    class Meta:
-        model = Guia
-        fields = ('user', 'preco', 'especialidades')
-
-
 class EspecialidadeSerializer(ModelSerializer):
     class Meta:
         model = Especialidade
         fields = ('descricao',)
+
+
+class GuiaSerializer(ModelSerializer):
+    especialidades = EspecialidadeSerializer(many=True)
+
+    class Meta:
+        model = Guia
+        fields = ('user', 'preco', 'especialidades')
