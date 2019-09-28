@@ -21,7 +21,15 @@ class CidadeSerializer(ModelSerializer):
         fields = ('estado', 'nome')
 
 
+class TipoSerializer(ModelSerializer):
+    class Meta:
+        model = Tipo
+        fields = ('descricao',)
+
+
 class EspecialidadeSerializer(ModelSerializer):
+    tipo = TipoSerializer(many=True)
+
     class Meta:
         model = Especialidade
         fields = ('descricao', 'tipo')
