@@ -27,6 +27,11 @@ class GuiaViewSet(ModelViewSet):
     serializer_class = GuiaSerializer
 
 
+class TuristaViewSet(ModelViewSet):
+    queryset = Turista.objects.all()
+    serializer_class = TuristaSerializer
+
+
 class EspecidalidadeViewSet(ModelViewSet):
     queryset = Especialidade.objects.all()
     serializer_class = EspecialidadeSerializer

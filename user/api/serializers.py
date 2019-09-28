@@ -42,3 +42,11 @@ class GuiaSerializer(ModelSerializer):
     class Meta:
         model = Guia
         fields = ('user', 'preco', 'especialidades')
+
+
+class TuristaSerializer(ModelSerializer):
+    user = UserSerializer(required=True)
+
+    class Meta:
+        model = Guia
+        fields = ('user',)
