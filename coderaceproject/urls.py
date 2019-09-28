@@ -17,7 +17,16 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 
+from mensagens.api.viewsets import MensagemViewSet
+
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'mensagem', MensagemViewSet)
+
 urlpatterns = [
+    # include dos routers
+    path('', include(router.urls)),
     path('admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
 ]
