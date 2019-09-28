@@ -1,5 +1,16 @@
 from rest_framework.viewsets import ModelViewSet
 from .serializers import *
+from rest_framework.viewsets import ModelViewSet
+
+
+class UserViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserEmailViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class AvaliacaoViewSet(ModelViewSet):

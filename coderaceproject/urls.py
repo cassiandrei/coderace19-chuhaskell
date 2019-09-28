@@ -21,6 +21,7 @@ from mensagens.api.viewsets import MensagemViewSet
 
 from rest_framework import routers
 
+<<<<<<< HEAD
 from user.api.viewsets import *
 
 router = routers.DefaultRouter()
@@ -28,6 +29,14 @@ router.register(r'mensagem', MensagemViewSet)
 router.register(r'cidades', CidadeViewSet)
 router.register(r'guias', GuiaViewSet)
 router.register(r'especialidades', EspecidalidadeViewSet)
+=======
+from user.api.viewsets import UserViewSet, UserEmailViewSet
+
+router = routers.DefaultRouter()
+router.register(r'mensagem', MensagemViewSet)
+router.register(r'user', UserViewSet)
+router.register(r'user/email', UserEmailViewSet, 'Email')
+>>>>>>> b582579cb30fe27718a188f9e662665577596115
 
 urlpatterns = [
     # include dos routers

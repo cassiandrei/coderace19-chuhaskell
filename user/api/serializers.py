@@ -2,10 +2,11 @@ from rest_framework.serializers import ModelSerializer
 from user.models import *
 
 
-class AvaliacaoSerializer(ModelSerializer):
+
+class UserSerializer(ModelSerializer):
     class Meta:
-        model = Avaliacao
-        fields = ('guia', 'turista', 'nota', 'comentario')
+        model = User
+        fields = ('email', 'password', 'nascimento', 'genero', 'telefone')
 
 
 class CidadeSerializer(ModelSerializer):

@@ -5,8 +5,8 @@
 
 # remove todos os arquivos de migração
 echo -n "Removendo arquivos de migração... "
-find . -path "../*/migrations/*.py" -not -name "__init__.py" -delete
-find . -path "../*/migrations/*.pyc" -delete
+for f in `find .. -name migrations`; do ls $f/0*py; done
+for f in `find .. -name migrations`; do ls $f/0*pyc; done
 echo "OK"
 
 # remove o banco de dados atual
