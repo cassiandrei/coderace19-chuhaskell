@@ -33,6 +33,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     pais = models.CharField('País', max_length=50, default='BR')
     estado = models.CharField('Estado', max_length=50, default='RS')
     cidade = models.CharField('Cidade', max_length=50, default='Santa Maria')
+    genero = models.CharField('Genero', max_length=6)
+    telefone = models.CharField('Telefone', max_length=15)
 
     USERNAME_FIELD = 'email'
     # USERNAME_FIELD and password are required by default
