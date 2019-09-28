@@ -31,6 +31,8 @@ class CidadeViewSet(ModelViewSet):
 class GuiaViewSet(ModelViewSet):
     queryset = Guia.objects.all()
     serializer_class = GuiaSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['user__cidade__nome', 'especialidades__tipo__descricao', 'especialidades__descricao']
 
 
 class TuristaViewSet(ModelViewSet):

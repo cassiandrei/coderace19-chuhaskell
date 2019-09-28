@@ -84,6 +84,9 @@ class Tipo(models.Model):
                 ('acompanhante', 'Acompanhante'))
     descricao = models.CharField('Descrição', max_length=10, choices=SERVICOS)
 
+    def __str__(self):
+        return self.descricao
+
 
 class Especialidade(models.Model):
     descricao = models.CharField('Descrição', max_length=120)
