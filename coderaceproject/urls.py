@@ -31,6 +31,7 @@ router.register(r'cidades', CidadeViewSet)
 router.register(r'guias', GuiaViewSet)
 router.register(r'especialidades', EspecidalidadeViewSet)
 router.register(r'turistas', TuristaViewSet)
+router.register(r'avaliacoes', AvaliacaoViewSet)
 
 urlpatterns = [
     # include dos routers
