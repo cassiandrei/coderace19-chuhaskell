@@ -24,6 +24,9 @@ class Estado(models.Model):
 class Cidade(models.Model):
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
     nome = models.CharField('Nome', max_length=30)
+    descricao = models.TextField('Descricao')
+    image = models.ImageField('Foto de Perfil', upload_to='cidades',
+                              null=True, blank=True)
 
     def __str__(self):
         return self.nome
@@ -76,8 +79,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         return str(self).split(" ")[0]
 
 
+class Tipo(models.Model):
+    SERVICOS = (('chat', 'Chat Online'),
+                ('acompanhante', 'Acompanhante'))
+    descricao = models.CharField('Descrição', max_length=10, choices=SERVICOS)
+
+
 class Especialidade(models.Model):
     descricao = models.CharField('Descrição', max_length=120)
+    tipo = models.ManyToManyField(Tipo)
 
     def __str__(self):
         return self.descricao
@@ -85,11 +95,20 @@ class Especialidade(models.Model):
 
 class Guia(models.Model):
     especialidades = models.ManyToManyField(Especialidade)
-    user = models.ForeignKey(User, models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     preco = models.DecimalField('Preco', default=0.00, max_digits=10, decimal_places=2)
 
     def __str__(self):
         return self.user.first_name
+
+
+# class Guia_Especialidade(models.Model):
+#     SERVICOS = (('chat', 'Chat Online'),
+#                 ('acompanhante', 'Acompanhante'))
+#
+#     guia = models.ForeignKey(Guia, on_delete=models.CASCADE)
+#     especialidade = models.ForeignKey(Especialidade, on_delete=models.CASCADE)
+#     tipo = models.CharField('Tipo de Serviço', max_length=30, choices=SERVICOS)
 
 
 class Turista(models.Model):

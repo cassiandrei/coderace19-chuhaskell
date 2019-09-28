@@ -6,7 +6,7 @@ from user.models import *
 class UserSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'password', 'nascimento', 'genero', 'telefone')
+        fields = ('email', 'password', 'nascimento', 'genero', 'telefone', 'image')
 
 
 class AvaliacaoSerializer(ModelSerializer):
@@ -21,14 +21,23 @@ class CidadeSerializer(ModelSerializer):
         fields = ('estado', 'nome')
 
 
+class TipoSerializer(ModelSerializer):
+    class Meta:
+        model = Tipo
+        fields = ('descricao',)
+
+
 class EspecialidadeSerializer(ModelSerializer):
+    tipo = TipoSerializer(many=True)
+
     class Meta:
         model = Especialidade
-        fields = ('descricao',)
+        fields = ('descricao', 'tipo')
 
 
 class GuiaSerializer(ModelSerializer):
     especialidades = EspecialidadeSerializer(many=True)
+    user = UserSerializer(required=True)
 
     class Meta:
         model = Guia
