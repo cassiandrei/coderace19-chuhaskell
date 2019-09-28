@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser
@@ -29,7 +29,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     # NEW Fields
     image = models.ImageField('Foto de Perfil', upload_to='users', help_text='Selecione imagens para seu Perfil',
                               null=True, blank=True)
-    nascimento = models.DateField('Data de Nascimento', default=datetime.today())
+    nascimento = models.DateField('Data de Nascimento', default=timezone.now)
     pais = models.CharField('País', max_length=50, default='BR')
     estado = models.CharField('Estado', max_length=50, default='RS')
     cidade = models.CharField('Cidade', max_length=50, default='Santa Maria')
