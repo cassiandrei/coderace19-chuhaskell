@@ -18,14 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 
 from mensagens.api.viewsets import MensagemViewSet
+from user.api.viewsets import *
 
 from rest_framework import routers
-
-from user.api.viewsets import UserViewSet, UserEmailViewSet
 
 router = routers.DefaultRouter()
 router.register(r'mensagem', MensagemViewSet)
 router.register(r'user', UserViewSet)
+router.register(r'cidades', CidadeViewSet)
+router.register(r'guias', GuiaViewSet)
+router.register(r'especialidades', EspecidalidadeViewSet)
 
 urlpatterns = [
     # include dos routers
