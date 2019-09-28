@@ -24,6 +24,8 @@ class Estado(models.Model):
 class Cidade(models.Model):
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
     nome = models.CharField('Nome', max_length=30)
+    image = models.ImageField('Foto de Perfil', upload_to='cidades',
+                              null=True, blank=True)
 
     def __str__(self):
         return self.nome
@@ -85,7 +87,7 @@ class Especialidade(models.Model):
 
 class Guia(models.Model):
     especialidades = models.ManyToManyField(Especialidade)
-    user = models.ForeignKey(User, models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     preco = models.DecimalField('Preco', default=0.00, max_digits=10, decimal_places=2)
 
     def __str__(self):

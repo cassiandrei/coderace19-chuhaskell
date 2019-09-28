@@ -29,6 +29,7 @@ class EspecialidadeSerializer(ModelSerializer):
 
 class GuiaSerializer(ModelSerializer):
     especialidades = EspecialidadeSerializer(many=True)
+    user = UserSerializer(required=True)
 
     class Meta:
         model = Guia
