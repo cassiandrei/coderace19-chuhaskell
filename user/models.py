@@ -24,6 +24,7 @@ class Estado(models.Model):
 class Cidade(models.Model):
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
     nome = models.CharField('Nome', max_length=30)
+    descricao = models.TextField('Descricao')
     image = models.ImageField('Foto de Perfil', upload_to='cidades',
                               null=True, blank=True)
 
