@@ -54,9 +54,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     image = models.ImageField('Foto de Perfil', upload_to='users', help_text='Selecione imagens para seu Perfil',
                               null=True, blank=True)
     nascimento = models.DateField('Data de Nascimento', default=timezone.now)
-    pais = models.ForeignKey(Pais, on_delete=models.CASCADE, null=True)
-    estado = models.ForeignKey(Estado, on_delete=models.CASCADE, null=True)
-    cidade = models.ForeignKey(Cidade, on_delete=models.CASCADE, null=True)
+    # pais = models.ForeignKey(Pais, on_delete=models.CASCADE, default=1)
+    # estado = models.ForeignKey(Estado, on_delete=models.CASCADE, default=1)
+    cidade = models.ForeignKey(Cidade, on_delete=models.CASCADE, default=1)
     genero = models.CharField('Genero', max_length=6, default='male')
     telefone = models.CharField('Telefone', max_length=15, default='234325')
 
