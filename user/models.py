@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser
 from django.db import models
@@ -27,10 +29,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     # NEW Fields
     image = models.ImageField('Foto de Perfil', upload_to='users', help_text='Selecione imagens para seu Perfil',
                               null=True, blank=True)
-    nascimento = models.DateField('Data de Nascimento')
-    pais = models.CharField('País', max_length=50)
-    estado = models.CharField('Estado', max_length=50)
-    cidade = models.CharField('Cidade', max_length=50)
+    nascimento = models.DateField('Data de Nascimento', default=datetime.today())
+    pais = models.CharField('País', max_length=50, default='BR')
+    estado = models.CharField('Estado', max_length=50, default='RS')
+    cidade = models.CharField('Cidade', max_length=50, default='Santa Maria')
 
     USERNAME_FIELD = 'email'
     # USERNAME_FIELD and password are required by default
@@ -48,3 +50,34 @@ class User(AbstractBaseUser, PermissionsMixin):
         return str(self).split(" ")[0]
 
 
+class Especialidade(models.Model):
+    descricao = models.CharField('Descrição', max_length=120)
+
+    def __str__(self):
+        return self.descricao
+
+
+class Guia(models.Model):
+    especialidades = models.ManyToManyField(Especialidade)
+    user = models.ForeignKey(User, models.CASCADE)
+    preco = models.DecimalField('Preco', default=0.00, max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return self.user.first_name
+
+
+class Turista(models.Model):
+    user = models.ForeignKey(User, models.CASCADE)
+
+    def __str__(self):
+        return self.user.first_name
+
+
+class Avaliacao(models.Model):
+    guia = models.ForeignKey(Guia, models.CASCADE)
+    turista = models.ForeignKey(Turista, models.CASCADE)
+    nota = models.IntegerField('Nota de 1 a 5')
+    comentario = models.TextField('Comentário')
+
+    def __str__(self):
+        return self.turista.first_name + ' em ' + self.guia.first_name
