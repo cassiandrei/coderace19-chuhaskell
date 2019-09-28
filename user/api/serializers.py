@@ -15,7 +15,15 @@ class AvaliacaoSerializer(ModelSerializer):
         fields = ('guia', 'turista', 'nota', 'comentario')
 
 
+class EstadoSerializer(ModelSerializer):
+    class Meta:
+        model = Cidade
+        fields = ('nome',)
+
+
 class CidadeSerializer(ModelSerializer):
+    estado = EstadoSerializer()
+
     class Meta:
         model = Cidade
         fields = ('estado', 'nome')

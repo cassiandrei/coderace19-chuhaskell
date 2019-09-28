@@ -36,6 +36,7 @@ router.register(r'avaliacoes', AvaliacaoViewSet)
 urlpatterns = [
     # include dos routers
     path('', include(router.urls)),
+    path('data/', include(router.urls)),
     path('admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

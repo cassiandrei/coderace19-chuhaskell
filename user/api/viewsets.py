@@ -2,6 +2,7 @@ from .serializers import *
 from rest_framework.viewsets import ModelViewSet
 
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
@@ -23,6 +24,8 @@ class AvaliacaoViewSet(ModelViewSet):
 class CidadeViewSet(ModelViewSet):
     queryset = Cidade.objects.all()
     serializer_class = CidadeSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['nome']
 
 
 class GuiaViewSet(ModelViewSet):
