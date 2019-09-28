@@ -27,3 +27,4 @@ class GuiaSerializer(ModelSerializer):
     class Meta:
         model = Guia
         fields = ('user', 'preco', 'especialidades')
+

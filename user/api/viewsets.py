@@ -17,7 +17,6 @@ class AvaliacaoViewSet(ModelViewSet):
     queryset = Avaliacao.objects.all()
     serializer_class = AvaliacaoSerializer
 
-
 class CidadeViewSet(ModelViewSet):
     queryset = Cidade.objects.all()
     serializer_class = CidadeSerializer
