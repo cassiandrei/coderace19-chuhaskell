@@ -8,6 +8,12 @@ class AvaliacaoSerializer(ModelSerializer):
         fields = ('guia', 'turista', 'nota', 'comentario')
 
 
+class AvaliacaoSerializer(ModelSerializer):
+    class Meta:
+        model = Avaliacao
+        fields = ('guia', 'turista', 'nota', 'comentario')
+
+
 class GuiaSerializer(ModelSerializer):
     class Meta:
         model = Avaliacao

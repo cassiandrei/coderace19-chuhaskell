@@ -14,6 +14,7 @@ class Pais(models.Model):
 
 
 class Estado(models.Model):
+    pais = models.ForeignKey(Pais, on_delete=models.CASCADE)
     nome = models.CharField('Nome', max_length=30)
 
     def __str__(self):
@@ -21,6 +22,7 @@ class Estado(models.Model):
 
 
 class Cidade(models.Model):
+    estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
     nome = models.CharField('Nome', max_length=30)
 
     def __str__(self):
