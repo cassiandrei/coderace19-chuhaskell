@@ -79,8 +79,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         return str(self).split(" ")[0]
 
 
+class Tipo(models.Model):
+    SERVICOS = (('chat', 'Chat Online'),
+                ('acompanhante', 'Acompanhante'))
+    descricao = models.CharField('Descrição', max_length=10, choices=SERVICOS)
+
+
 class Especialidade(models.Model):
     descricao = models.CharField('Descrição', max_length=120)
+    tipo = models.ManyToManyField(Tipo)
 
     def __str__(self):
         return self.descricao
@@ -93,6 +100,15 @@ class Guia(models.Model):
 
     def __str__(self):
         return self.user.first_name
+
+
+# class Guia_Especialidade(models.Model):
+#     SERVICOS = (('chat', 'Chat Online'),
+#                 ('acompanhante', 'Acompanhante'))
+#
+#     guia = models.ForeignKey(Guia, on_delete=models.CASCADE)
+#     especialidade = models.ForeignKey(Especialidade, on_delete=models.CASCADE)
+#     tipo = models.CharField('Tipo de Serviço', max_length=30, choices=SERVICOS)
 
 
 class Turista(models.Model):

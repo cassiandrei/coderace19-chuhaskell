@@ -34,7 +34,7 @@ for pais, estados in LOCAIS.items():
 print("Criando especialidades...")
 espec_list = []
 for espec in SPECIALITIES:
-    espec_obj = Especialidade.objects.create(descricao=espec)
+    espec_obj = Especialidade.objects.create(descricao=espec, tipo='chat')
     espec_obj.save()
     espec_list.append(espec_obj)
 
