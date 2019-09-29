@@ -6,6 +6,30 @@ from django.db import models
 from django.utils.translation import gettext as _
 
 
+class Pais(models.Model):
+    nome = models.CharField('Nome', max_length=30)
+
+    def __str__(self):
+        return self.nome
+
+
+class Estado(models.Model):
+    pais = models.ForeignKey(Pais, on_delete=models.CASCADE)
+    nome = models.CharField('Nome', max_length=30)
+
+    def __str__(self):
+        return self.nome
+
+
+class Cidade(models.Model):
+    estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
+    nome = models.CharField('Nome', max_length=30)
+
+    def __str__(self):
+        return self.nome
+
+
+# USER
 class UserManager(BaseUserManager):
     def create_superuser(self, email, password, **kwargs):
         user = self.model(email=email, is_staff=True, is_superuser=True, **kwargs)
@@ -30,9 +54,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     image = models.ImageField('Foto de Perfil', upload_to='users', help_text='Selecione imagens para seu Perfil',
                               null=True, blank=True)
     nascimento = models.DateField('Data de Nascimento', default=timezone.now)
-    pais = models.CharField('País', max_length=50, default='BR')
-    estado = models.CharField('Estado', max_length=50, default='RS')
-    cidade = models.CharField('Cidade', max_length=50, default='Santa Maria')
+    pais = models.ForeignKey(Pais, on_delete=models.CASCADE, default=1)
+    estado = models.ForeignKey(Estado, on_delete=models.CASCADE, default=1)
+    cidade = models.ForeignKey(Cidade, on_delete=models.CASCADE, default=1)
+    genero = models.CharField('Genero', max_length=6, default='male')
+    telefone = models.CharField('Telefone', max_length=15, default='234325')
 
     USERNAME_FIELD = 'email'
     # USERNAME_FIELD and password are required by default
@@ -80,4 +106,4 @@ class Avaliacao(models.Model):
     comentario = models.TextField('Comentário')
 
     def __str__(self):
-        return self.turista.first_name + ' em ' + self.guia.first_name
+        return self.turista.user.first_name + ' em ' + self.guia.user.first_name
