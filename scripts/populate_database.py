@@ -5,7 +5,7 @@ from django.core.files import File  # you need this somewhere
 from user.models import User, Guia, Turista, Especialidade, Avaliacao, Pais, Estado, Cidade
 
 
-SPECIALITIES = ("Tradução","Direção","Assitência a Pessoas com Deficiência","Cultura","Aventura","Ecoturismo","Praia","Baladas")
+SPECIALITIES = ("Tradução","Direção","Assistência a Pessoas com Deficiência","Cultura","Aventura","Ecoturismo","Praia","Baladas")
 GENDERS = ("male","female")
 
 LOCAIS = {
@@ -26,7 +26,12 @@ for pais, estados in LOCAIS.items():
         estado_obj = Estado.objects.create(nome=estado, pais=pais_obj)
         estado_obj.save()
         for cidade in cidades:
-            cidade_obj = Cidade.objects.create(nome=cidade, estado=estado_obj)
+            cidade_obj = Cidade.objects.create(
+                nome   = cidade, 
+                estado = estado_obj,
+                image  = "cidades/{p}_{e}_{c}.jpg".format(p=pais,e=estado,c=cidade).replace(" ", "_"),
+                descricao = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            )
             cidade_obj.save()
             locais.append(cidade_obj)
 
