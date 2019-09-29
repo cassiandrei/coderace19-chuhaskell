@@ -18,7 +18,7 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('password', 'email')
         }),
         ('Informações Básicas', {
-            'fields': ('first_name', 'last_name', 'last_login')
+            'fields': ('first_name', 'last_name', 'last_login', 'image')
         }),
         (
             'Permissões', {

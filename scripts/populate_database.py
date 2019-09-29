@@ -5,16 +5,6 @@ from django.core.files import File  # you need this somewhere
 from user.models import User, Guia, Turista, Especialidade, Avaliacao, Pais, Estado, Cidade
 
 
-# print ("Carregando Imagens...")
-# WOMAN_PHOTOS = []
-# MAN_PHOTOS = []
-# for i in range(8):
-#     filename = "w{i}.jpg".format(i=i)
-#     WOMAN_PHOTOS.append([filename, File(open(filename, "rb"))])
-#     filename = "m{i}.jpg".format(i=i)
-#     MAN_PHOTOS.append([filename, File(open(filename, "rb"))])
-
-
 SPECIALITIES = ("Tradução","Direção","Assitência a Pessoas com Deficiência","Cultura","Aventura","Ecoturismo","Praia","Baladas")
 GENDERS = ("male","female")
 
@@ -49,12 +39,11 @@ for espec in SPECIALITIES:
     espec_list.append(espec_obj)
 
 print("Criando Super Usuário...")
-User.objects.create(
+User.objects.create_superuser(
     first_name = "Chuhaskell",
     last_name = "Endgame",
     email = "jvlima@inf.ufsm.br",
-    password = "123",
-    is_staff = True
+    password = "teste1234"
 ).save()
 
 print("Criando guias e associando com especialidades...")
@@ -74,7 +63,11 @@ for i in range(20):
             telefone    = "+55559" + str(randint(0,99999999)).rjust(8, "0"),
             nascimento  = datetime(randint(1940, 2000), randint(1, 12), randint(1, 28)),
             genero      = genero,
-            cidade      = locais[randrange(len(locais))]
+            cidade      = locais[randrange(len(locais))],
+            image       = "users/{g}{i}.jpg".format(
+                g = "w" if genero == "female" else "m",
+                i = randrange(8)
+            )
         ), 
         preco = 20 + random() * 30
     )
@@ -104,7 +97,11 @@ for i in range(20):
             telefone    = "+55559" + str(randint(0,99999999)).rjust(8, "0"),
             nascimento  = datetime(randint(1940, 2000), randint(1, 12), randint(1, 28)),
             genero      = genero,
-            cidade      = locais[randrange(len(locais))]
+            cidade      = locais[randrange(len(locais))],
+            image       = "users/{g}{i}.jpg".format(
+                g = "w" if genero == "female" else "m",
+                i = randrange(8)
+            )
         )
     )
     turista_obj.save()
