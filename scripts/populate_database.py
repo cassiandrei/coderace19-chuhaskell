@@ -1,7 +1,19 @@
 import names
 from random import shuffle, randint, random, randrange
 from datetime import datetime
+from django.core.files import File  # you need this somewhere
 from user.models import User, Guia, Turista, Especialidade, Avaliacao, Pais, Estado, Cidade
+
+
+# print ("Carregando Imagens...")
+# WOMAN_PHOTOS = []
+# MAN_PHOTOS = []
+# for i in range(8):
+#     filename = "w{i}.jpg".format(i=i)
+#     WOMAN_PHOTOS.append([filename, File(open(filename, "rb"))])
+#     filename = "m{i}.jpg".format(i=i)
+#     MAN_PHOTOS.append([filename, File(open(filename, "rb"))])
+
 
 SPECIALITIES = ("Tradução","Direção","Assitência a Pessoas com Deficiência","Cultura","Aventura","Ecoturismo","Praia","Baladas")
 GENDERS = ("male","female")
@@ -35,6 +47,15 @@ for espec in SPECIALITIES:
     espec_obj = Especialidade.objects.create(descricao=espec)
     espec_obj.save()
     espec_list.append(espec_obj)
+
+print("Criando Super Usuário...")
+User.objects.create(
+    first_name = "Chuhaskell",
+    last_name = "Endgame",
+    email = "jvlima@inf.ufsm.br",
+    password = "123",
+    is_staff = True
+).save()
 
 print("Criando guias e associando com especialidades...")
 guia_list = []
