@@ -1,37 +1,75 @@
-import names, random
-from django.utils import timezone
-# from accounts.models import Guia, Turista
+import names
+from random import shuffle, randint, random
+from datetime import datetime
+from user.models import User, Guia, Turista, Especialidade, Avaliacao
 
+
+SPECIALITIES = ("Tradução","Direção","Assitência a Pessoas com Deficiência","Cultura","Aventura","Ecoturismo","Praia","Baladas")
 GENDERS = ("male","female")
-SPECIALITIES = ("translation","driving","disable-assistance","culture","adventure","ecotourism","beach","night-life")
 
-class RandomUser:
-    def __init__(self):
-        self.genero = GENDERS[random.randint(0, 1)]
-        self.name = names.get_full_name(genero=self.genero)
-        self.data_nascimento = timezone()
-        # self.birth_day = random.randint(1, 28)
-        # self.birth_month = random.randint(1, 12)
-        # self.birth_year = random.randint(1940, 2000)
-        self.country = "Brazil"
-        self.state = "RS"
-        self.city = "Santa Maria"
-        self.email = self.name.split()[0].lower() + "_" + self.name.split()[-1].lower() + "@gmail.com"
-        self.phone = "+55559" + str(random.randint(0,99999999)).rjust(8, "0")
-        self.password = "123"
+print("Criando especialidades...")
+espec_list = []
+for espec in SPECIALITIES:
+    espec_obj = Especialidade.objects.create(descricao=espec)
+    espec_obj.save()
+    espec_list.append(espec_obj)
 
-class RandomGuide(RandomUser):
-    def __init__(self):
-        RandomUser.__init__(self)
-        self.price = 20 + random.random() * 30
-        self.social_number = str(random.randint(0,99999999999)).rjust(11, "0")
-
-class RandomTourist(RandomUser):
-    pass
-
-# cria guias
+print("Criando guias...")
+guia_list = []
 for i in range(20):
-    RandomGuide()
-    new_user = User.objects.create_user(user['username'], password=user['password'], email=user['email'])
-    guia = Guia.objects.create(user=new_user, preco=5.00)
-    guia.save()
+    genero = GENDERS[randint(0, 1)]
+    name = names.get_full_name(gender=genero)
+    first_name = name.split()[0]
+    last_name  = name.split()[1]
+
+    guia_obj = Guia.objects.create(
+        user = User.objects.create(
+            first_name  = first_name,
+            last_name   = last_name,
+            email       = first_name.lower() + "_" + last_name.lower() + "@gmail.com", 
+            password    = "123",
+            # telefone    = "+55559" + str(randint(0,99999999)).rjust(8, "0"),
+            nascimento  = datetime(randint(1940, 2000), randint(1, 12), randint(1, 28)),
+            # genero      = genero
+        ), 
+        preco = 20 + random() * 30
+    )
+
+    # associa com especialidade
+    shuffle(espec_list)
+    random_especs = espec_list[:randint(1,5)]
+    for espec_obj in random_especs:
+        guia_obj.especialidades.add(espec_obj)
+    
+    guia_obj.save()
+    guia_list.append(guia_obj)
+
+print("Criando turistas e avaliações...")
+for i in range(20):
+    genero = GENDERS[randint(0, 1)]
+    name = names.get_full_name(gender=genero)
+    first_name = name.split()[0]
+    last_name  = name.split()[1]
+
+    turista_obj = Turista.objects.create(
+        user = User.objects.create(
+            first_name  = first_name,
+            last_name   = last_name,
+            email       = first_name.lower() + "_" + last_name.lower() + "@gmail.com", 
+            password    = "123",
+            # telefone    = "+55559" + str(randint(0,99999999)).rjust(8, "0"),
+            nascimento  = datetime(randint(1940, 2000), randint(1, 12), randint(1, 28)),
+            # genero      = genero
+        )
+    )
+        
+    shuffle(guia_list)
+    random_guias = guia_list[:randint(1,5)]
+    for guia_obj in random_guias:
+        rate_obj = Avaliacao.objects.create(
+            guia        = guia_obj,
+            turista     = turista_obj,
+            nota        = randint(1, 5),
+            comentario  = "Pessoa muito atenciosa, porém pouca atenção aos detalhes."
+        )
+        rate_obj.save()
