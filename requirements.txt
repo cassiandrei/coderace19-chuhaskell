@@ -2,6 +2,6 @@ django
 django-allauth
 pillow
 django-cleanup
-djangorestframework==3.9.0
+djangorestframework==3.11.2
 names
 django-filter
